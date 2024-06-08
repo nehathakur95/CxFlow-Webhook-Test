@@ -1,0 +1,58 @@
+version: 1.0
+
+# General settings for Checkmarx SCA
+sca:
+  # Project name and other metadata
+  project:
+    name: "SampleJarProject"
+    branch: "main"
+    owner: "ownerName"
+
+  # Scan settings
+  scan:
+    # Define package managers to scan, typical for Java would be maven or gradle
+    package_managers:
+      - maven
+      - gradle
+
+    # Exclude specific directories or files if needed
+    exclude:
+      - "target"
+      - "build"
+      - "*.test.java"
+
+    # Include specific directories or files if needed
+    include:
+      - "src"
+      - "pom.xml"
+      - "build.gradle"
+
+  # Authentication details (use environment variables for security)
+  authentication:
+    # Checkmarx API credentials
+    api_key: ${CHECKMARX_API_KEY}
+
+  # Optional: Define handlers or custom scripts if any
+  handlers:
+    - name: "customHandler"
+      config:
+        key: "value"
+
+# Reporting settings
+report:
+  format: "pdf"
+  output: "results/sca_report.pdf"
+
+# Notification settings
+notifications:
+  email:
+    recipients:
+      - "developer@example.com"
+    on_success: true
+    on_failure: true
+
+# Integration settings (e.g., GitHub, GitLab)
+integration:
+  github:
+    repository: "owner/repo"
+    token: ${GITHUB_TOKEN}
